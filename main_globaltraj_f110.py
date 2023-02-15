@@ -21,8 +21,10 @@ Created by:
 Steven Gong
 
 Documentation:
-This script has to be executed to generate an optimal trajectory based on a given reference track.
+This script has to be executed to generate an optimal trajectory based on a given reference track. Adapted for
+F1TENTH ROS code.
 """
+MAP_NAME = "f110_berlin"
 
 # ----------------------------------------------------------------------------------------------------------------------
 # USER INPUT -----------------------------------------------------------------------------------------------------------
@@ -44,10 +46,7 @@ plot_opts = {"mincurv_curv_lin": False,         # plot curv. linearization (orig
              "mintime_plots": False}            # plot states, controls, friction coeffs etc. (mintime only)
 
 # select track file (including centerline coordinates + track widths) --------------------------------------------------
-# file_paths["track_name"] = "rounded_rectangle"                              # artificial track
-# file_paths["track_name"] = "handling_track"                                 # artificial track
-file_paths["track_name"] = "berlin_2018"                                    # Berlin Formula E 2018
-# file_paths["track_name"] = "modena_2019"                                    # Modena 2019
+file_paths["track_name"] = MAP_NAME                                 
 
 # set import options ---------------------------------------------------------------------------------------------------
 imp_opts = {"flip_imp_track": False,                # flip imported track to reverse direction
@@ -146,17 +145,17 @@ if opt_type == 'mintime' \
           " var_friction to None!")
 
 # create outputs folder(s)
-os.makedirs(file_paths["module"] + "/outputs", exist_ok=True)
+os.makedirs(file_paths["module"] + f"/outputs/{MAP_NAME}", exist_ok=True)
 
 TIME = str(datetime.now())
 if opt_type == 'mintime':
-    os.makedirs(file_paths["module"] + f"/outputs/mintime-{TIME}", exist_ok=True)
+    os.makedirs(file_paths["module"] + f"/outputs/{MAP_NAME}/mintime-{TIME}", exist_ok=True)
 
 # assemble export paths
-file_paths["mintime_export"] = os.path.join(file_paths["module"], "outputs", f"mintime-{TIME}")
-file_paths["traj_race_export"] = os.path.join(file_paths["module"], "outputs", f"traj_race_cl-{TIME}.csv")
+file_paths["mintime_export"] = os.path.join(file_paths["module"], f"outputs/{MAP_NAME}", f"mintime-{TIME}")
+file_paths["traj_race_export"] = os.path.join(file_paths["module"], f"outputs/{MAP_NAME}", f"traj_race_cl-{TIME}.csv")
 # file_paths["traj_ltpl_export"] = os.path.join(file_paths["module"], "outputs", "traj_ltpl_cl.csv")
-file_paths["lap_time_mat_export"] = os.path.join(file_paths["module"], "outputs", lap_time_mat_opts["file"])
+file_paths["lap_time_mat_export"] = os.path.join(file_paths["module"], f"outputs/{MAP_NAME}", lap_time_mat_opts["file"])
 
 # ----------------------------------------------------------------------------------------------------------------------
 # IMPORT VEHICLE DEPENDENT PARAMETERS ----------------------------------------------------------------------------------

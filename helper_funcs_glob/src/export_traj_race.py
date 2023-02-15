@@ -48,7 +48,7 @@ def export_traj_race_f110(file_paths: dict,
 
     Documentation:
     This function is used to export the generated trajectory into a csv file.
-    We only need the x,y and velocity profile.
+    We only need the x,y and velocity profile in the case of the f110 pure pursuit.
 
     Inputs:
     file_paths:     paths for input and output files {ggv_file, traj_race_export, traj_ltpl_export, lts_export}
