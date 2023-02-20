@@ -28,8 +28,19 @@ can be found on https://github.com/TUMFTM/trajectory_planning_helpers. They can 
 well.
 
 # Dependencies
-Use the provided `requirements.txt` in the root directory of this repo, in order to install all required modules.\
-`pip3 install -r /path/to/requirements.txt`
+
+```bash
+conda create --name raceline
+conda activate raceline
+pip install -r requirements.txt
+```
+
+
+### Steps
+Consult https://stevengong.co/notes/Raceline-Optimization.
+
+First, run `map_converter.ipynb`, and then run `sanity_check.ipynb` to make sure the line generated is correct.
+
 
 The code is developed with Ubuntu 20.04 LTS and Python 3.7.
 
