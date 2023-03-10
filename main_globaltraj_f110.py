@@ -24,7 +24,7 @@ Documentation:
 This script has to be executed to generate an optimal trajectory based on a given reference track. Adapted for
 F1TENTH ROS code.
 """
-MAP_NAME = "e7_floor5"
+MAP_NAME = "pingpong_clean"
 # MAP_NAME = "Spielberg_map"
 
 # ----------------------------------------------------------------------------------------------------------------------
