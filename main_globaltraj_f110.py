@@ -12,7 +12,6 @@ import trajectory_planning_helpers as tph
 import copy
 import matplotlib.pyplot as plt
 import configparser
-import pkg_resources
 import helper_funcs_glob
 from datetime import datetime
 
@@ -24,8 +23,8 @@ Documentation:
 This script has to be executed to generate an optimal trajectory based on a given reference track. Adapted for
 F1TENTH ROS code.
 """
-# MAP_NAME = "e7_floor5_large"
-MAP_NAME = "Hockenheim_map"
+MAP_NAME = "hubble_small"
+# MAP_NAME = "Hockenheim_map"
 
 # ----------------------------------------------------------------------------------------------------------------------
 # USER INPUT -----------------------------------------------------------------------------------------------------------
@@ -38,7 +37,7 @@ file_paths = {"veh_params_file": "f110.ini"}
 debug = True                                    # print console messages
 plot_opts = {"mincurv_curv_lin": False,         # plot curv. linearization (original and solution based) (mincurv only)
              "raceline": True,                  # plot optimized path
-             "imported_bounds": False,          # plot imported bounds (analyze difference to interpolated bounds)
+             "imported_bounds": True,          # plot imported bounds (analyze difference to interpolated bounds)
              "raceline_curv": False,             # plot curvature profile of optimized path
              "racetraj_vel": True,              # plot velocity profile
              "racetraj_vel_3d": True,          # plot 3D velocity profile above raceline
@@ -47,7 +46,7 @@ plot_opts = {"mincurv_curv_lin": False,         # plot curv. linearization (orig
              "mintime_plots": False}            # plot states, controls, friction coeffs etc. (mintime only)
 
 # select track file (including centerline coordinates + track widths) --------------------------------------------------
-file_paths["track_name"] = MAP_NAME                                 
+file_paths["track_name"] = MAP_NAME
 
 # set import options ---------------------------------------------------------------------------------------------------
 imp_opts = {"flip_imp_track": False,                # flip imported track to reverse direction
@@ -104,20 +103,6 @@ if opt_type == "mintime" and not mintime_opts["recalc_vel_profile_by_tph"] and l
 
 # get current path
 file_paths["module"] = os.path.dirname(os.path.abspath(__file__))
-
-# read dependencies from requirements.txt
-requirements_path = os.path.join(file_paths["module"], 'requirements.txt')
-dependencies = []
-
-with open(requirements_path, 'r') as fh:
-    line = fh.readline()
-
-    while line:
-        dependencies.append(line.rstrip())
-        line = fh.readline()
-
-# check dependencies
-pkg_resources.require(dependencies)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # INITIALIZATION OF PATHS ----------------------------------------------------------------------------------------------

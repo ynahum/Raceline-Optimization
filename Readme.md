@@ -22,27 +22,35 @@ calculating the global race trajectory.
   thermal behavior of the powertrain and to consider the state of charge of the battery.
 * `params`: This folder contains a parameter file with optimization and vehicle parameters.
 
-# Trajectory Planning Helpers repository
-Lots of the required functions for trajectory planning are cumulated in our trajectory planning helpers repository. It
-can be found on https://github.com/TUMFTM/trajectory_planning_helpers. They can be quite useful for other projects as
-well.
+# Getting Started
 
-# Dependencies
-
+First, clone the repository
 ```bash
-conda create --name raceline
-conda activate raceline
-pip install -r requirements.txt
+git clone https://github.com/CL2-UWaterloo/Raceline-Optimization.git
+cd Raceline-Optimization
 ```
 
+Then, set up your virtual environment. Conda is the recommended method.
 
-### Steps
+```bash
+conda create --name raceline python=3.8
+conda activate raceline
+```
+
+Lots of the required functions for trajectory planning are cumulated in the trajectory planning helpers repository.
+
+**Note**: A fork of the trajectory planning helper repository is used in the `requirements.txt` file instead of the original repository due to issues with outdated `quadprog` library.
+
+Install the required python packages
+```bash
+pip install -r requirements.txt
+```
+# Steps
 Consult https://stevengong.co/notes/Raceline-Optimization.
 
 First, run `map_converter.ipynb`, and then run `sanity_check.ipynb` to make sure the line generated is correct.
 
-
-The code is developed with Ubuntu 20.04 LTS and Python 3.7.
+The code is developed with Ubuntu 20.04 LTS and Python 3.8.
 
 ### Solutions for possible installation problems (Windows)
 * `cvxpy`, `cython` or any other package requires a `Visual C++ compiler` -> Download the build tools for Visual Studio

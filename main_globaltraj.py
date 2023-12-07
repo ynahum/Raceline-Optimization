@@ -7,7 +7,6 @@ import trajectory_planning_helpers as tph
 import copy
 import matplotlib.pyplot as plt
 import configparser
-import pkg_resources
 import helper_funcs_glob
 
 """
@@ -98,20 +97,6 @@ if opt_type == "mintime" and not mintime_opts["recalc_vel_profile_by_tph"] and l
 
 # get current path
 file_paths["module"] = os.path.dirname(os.path.abspath(__file__))
-
-# read dependencies from requirements.txt
-requirements_path = os.path.join(file_paths["module"], 'requirements.txt')
-dependencies = []
-
-with open(requirements_path, 'r') as fh:
-    line = fh.readline()
-
-    while line:
-        dependencies.append(line.rstrip())
-        line = fh.readline()
-
-# check dependencies
-pkg_resources.require(dependencies)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # INITIALIZATION OF PATHS ----------------------------------------------------------------------------------------------
