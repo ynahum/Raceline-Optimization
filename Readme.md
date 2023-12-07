@@ -50,6 +50,11 @@ Consult https://stevengong.co/notes/Raceline-Optimization.
 
 First, run `map_converter.ipynb`, and then run `sanity_check.ipynb` to make sure the line generated is correct.
 
+Then, modify the variables in `main_globaltraj_f110.py` to load in the correct centerline and run it to generate the trajectory.
+```
+python3 main_globaltraj_f110.py
+```
+
 The code is developed with Ubuntu 20.04 LTS and Python 3.8.
 
 ### Solutions for possible installation problems (Windows)
