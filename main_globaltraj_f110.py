@@ -1,6 +1,6 @@
 """
-A modification of `main_globaltraj.py` to so that the csv generated can directly be used 
-by the pure_pursuit node: https://github.com/CL2-UWaterloo/F1TENTH-Autonomous-Racing-Research/tree/main/nodes/pure_pursuit
+A modification of `main_globaltraj.py` to so that the csv generated can directly be used
+by the pure_pursuit node: https://github.com/CL2-UWaterloo/f1tenth_ws/tree/main/src/pure_pursuit
 
 """
 import opt_mintime_traj
@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 import configparser
 import helper_funcs_glob
 from datetime import datetime
+import argparse
+import shutil
 
 """
 Created by:
@@ -23,7 +25,22 @@ Documentation:
 This script has to be executed to generate an optimal trajectory based on a given reference track. Adapted for
 F1TENTH ROS code.
 """
-MAP_NAME = "hubble_small"
+
+
+# Create the parser and add arguments with defaults and explicit names
+parser = argparse.ArgumentParser(description='Generate optimal trajectory for F1TENTH racing.')
+parser.add_argument('--map_name', type=str, default='e7_floor5_square', help='Name of the map (default: e7_floor5_square)')
+parser.add_argument('--map_path', type=str, default='', help='Path to the map centerline (should be a .csv), defaults to inputs/tracks/<map_name>.csv')
+parser.add_argument('--export_path', type=str, default='', help='Path to copy from the filepath in the /outputs')
+
+args = parser.parse_args()
+
+# Use the arguments
+MAP_NAME = args.map_name
+MAP_PATH = args.map_path
+EXPORT_PATH = args.export_path
+
+# MAP_NAME = "hubble_small"
 # MAP_NAME = "Hockenheim_map"
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -108,8 +125,10 @@ file_paths["module"] = os.path.dirname(os.path.abspath(__file__))
 # INITIALIZATION OF PATHS ----------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 
+if MAP_PATH == '':
+    MAP_PATH = os.path.join(file_paths["module"], "inputs", "tracks", file_paths["track_name"] + ".csv")
 # assemble track import path
-file_paths["track_file"] = os.path.join(file_paths["module"], "inputs", "tracks", file_paths["track_name"] + ".csv")
+file_paths["track_file"] = MAP_PATH
 
 # assemble friction map import paths
 file_paths["tpamap"] = os.path.join(file_paths["module"], "inputs", "frictionmaps",
@@ -573,3 +592,8 @@ helper_funcs_glob.src.result_plots.result_plots(plot_opts=plot_opts,
                                                 bound1_interp=bound1,
                                                 bound2_interp=bound2,
                                                 trajectory=trajectory_opt)
+
+
+
+if EXPORT_PATH != '':
+    shutil.copy2(file_paths["traj_race_export"], EXPORT_PATH)
