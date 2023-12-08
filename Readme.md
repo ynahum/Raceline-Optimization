@@ -13,11 +13,11 @@ more computation time. Please look into the `main_globaltraj.py` for all possibl
 # List of components
 * `frictionmap`: This package contains the functions related to the creation and handling of friction maps along the
 race track.
-* `helper_funcs_glob`: This package contains some helper functions used in several other functions when 
+* `helper_funcs_glob`: This package contains some helper functions used in several other functions when
 calculating the global race trajectory.
 * `inputs`: This folder contains the vehicle dynamics information, the reference track csvs and friction maps.
-* `opt_mintime_traj`: This package contains the functions required to find the time-optimal trajectory. 
-  
+* `opt_mintime_traj`: This package contains the functions required to find the time-optimal trajectory.
+
   It also includes the powertrain components in `opt_mintime_traj/powertrain_src` used to calculate power losses and 
   thermal behavior of the powertrain and to consider the state of charge of the battery.
 * `params`: This folder contains a parameter file with optimization and vehicle parameters.
@@ -45,15 +45,31 @@ Install the required python packages
 ```bash
 pip install -r requirements.txt
 ```
+
 # Steps
-Consult https://stevengong.co/notes/Raceline-Optimization.
+
+### For `slam_toolbox`
+If you generated the map through `slam_toolbox`, consult https://stevengong.co/notes/Raceline-Optimization.
+You might need to photoshop the map first to remove any artifacts and have clear track boundaries.
 
 First, run `map_converter.ipynb`, and then run `sanity_check.ipynb` to make sure the line generated is correct.
 
-Then, modify the variables in `main_globaltraj_f110.py` to load in the correct centerline and run it to generate the trajectory.
+This will export a `.csv` file of the map to `inputs/tracks`.
+
+### For Waypoint Generator
+Alternatively, if you generated the map by storing a set of waypoints, you can directly store it inside `inputs/tracks`.
+
+### Common steps
+Then, run `main_globaltraj_f110.py` with the map name to generate the trajectory (expects the map to be inside `inputs/tracks`). By default, the generated raceline will be stored inside `outputs/<map_name>`. Optionally, you can specify a `--map_path` and `--export_path`.
 
 ```bash
-python3 main_globaltraj_f110.py
+python3 main_globaltraj_f110.py --map_name e7_floor5_square
+```
+
+Example with a specific map path and export path:
+
+```bash
+python3 main_globaltraj_f110.py --map_name e7_floor5_square --map_path ~/workspaces/racetracks/e7_floor5_square.csv --export_path /tmp/traj_race_cl.csv
 ```
 
 The code is developed with Ubuntu 20.04 LTS and Python 3.8.
