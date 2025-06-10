@@ -78,7 +78,7 @@ imp_opts = {"flip_imp_track": False,                # flip imported track to rev
 # 'mincurv'             minimum curvature optimization without iterative call
 # 'mincurv_iqp'         minimum curvature optimization with iterative call
 # 'mintime'             time-optimal trajectory optimization
-opt_type = 'mintime'
+opt_type = 'mincurv'
 
 # set mintime specific options (mintime only) --------------------------------------------------------------------------
 # tpadata:                      set individual friction map data file if desired (e.g. for varmue maps), else set None,
@@ -158,7 +158,7 @@ if opt_type == 'mintime':
 
 # assemble export paths
 file_paths["mintime_export"] = os.path.join(file_paths["module"], f"outputs/{MAP_NAME}", f"mintime-{TIME}")
-file_paths["traj_race_export"] = os.path.join(file_paths["module"], f"outputs/{MAP_NAME}", f"traj_race_cl-{TIME}.csv")
+file_paths["traj_race_export"] = os.path.join(file_paths["module"], f"outputs/{MAP_NAME}", f"traj_race_cl.csv")
 # file_paths["traj_ltpl_export"] = os.path.join(file_paths["module"], "outputs", "traj_ltpl_cl.csv")
 file_paths["lap_time_mat_export"] = os.path.join(file_paths["module"], f"outputs/{MAP_NAME}", lap_time_mat_opts["file"])
 
